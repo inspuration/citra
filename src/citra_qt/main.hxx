@@ -41,6 +41,7 @@ private slots:
     void OnMenuLoadFile();
     void OnMenuLoadSymbolMap();
     void OnOpenHotkeysDialog();
+	void OnOpenKeyBindingsDialog();
     void OnConfigure();
     void ToggleWindowMode();
 

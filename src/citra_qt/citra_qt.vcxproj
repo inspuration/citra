@@ -137,6 +137,7 @@
     <ClCompile Include="debugger\ramview.cpp" />
     <ClCompile Include="bootmanager.cpp" />
     <ClCompile Include="hotkeys.cpp" />
+    <ClCompile Include="key_bindings.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +153,7 @@
     <MOC Include="debugger\registers.hxx" />
     <MOC Include="bootmanager.hxx" />
     <MOC Include="hotkeys.hxx" />
+    <MOC Include="key_bindings.hxx" />
     <MOC Include="main.hxx" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +178,7 @@
     <UIC Include="debugger\registers.ui" />
     <UIC Include="debugger\disassembler.ui" />
     <UIC Include="hotkeys.ui" />
+    <UIC Include="key_bindings.ui" />
     <UIC Include="main.ui" />
   </ItemGroup>
   <ItemGroup>

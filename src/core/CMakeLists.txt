@@ -37,6 +37,7 @@ set(SRCS    core.cpp
             hle/kernel/event.cpp
             hle/kernel/kernel.cpp
             hle/kernel/mutex.cpp
+            hle/kernel/shared_memory.cpp
             hle/kernel/thread.cpp
             hle/service/apt.cpp
             hle/service/gsp.cpp
@@ -46,7 +47,8 @@ set(SRCS    core.cpp
             hle/service/srv.cpp
             hw/gpu.cpp
             hw/hw.cpp
-            hw/ndma.cpp)
+            hw/ndma.cpp
+            hw/hid.cpp)
 
 set(HEADERS core.h
             core_timing.h
@@ -83,6 +85,7 @@ set(HEADERS core.h
             hle/svc.h
             hle/kernel/kernel.h
             hle/kernel/mutex.h
+            hle/kernel/shared_memory.h
             hle/kernel/thread.h
             hle/function_wrappers.h
             hle/service/apt.h
@@ -92,6 +95,7 @@ set(HEADERS core.h
             hle/service/srv.h
             hw/gpu.h
             hw/hw.h
-            hw/ndma.h)
+            hw/ndma.h
+            hw/hid.h)
 
 add_library(core STATIC ${SRCS} ${HEADERS})

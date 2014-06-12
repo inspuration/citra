@@ -51,6 +51,7 @@
     <ClCompile Include="debugger\registers.cpp">
       <Filter>debugger</Filter>
     </ClCompile>
+    <ClCompile Include="key_bindings.cpp" />
   </ItemGroup>
   <ItemGroup>
     <MOC Include="..\..\externals\qhexedit\commands.h">
@@ -86,6 +87,7 @@
     <MOC Include="debugger\registers.hxx">
       <Filter>debugger</Filter>
     </MOC>
+    <MOC Include="key_bindings.hxx" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="version.h" />
@@ -111,6 +113,7 @@
     <UIC Include="debugger\registers.ui">
       <Filter>debugger</Filter>
     </UIC>
+    <UIC Include="key_bindings.ui" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />

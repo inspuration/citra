@@ -99,6 +99,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <ClCompile />
+    <ClCompile>
+      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile />
@@ -106,6 +109,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <ClCompile />
+    <ClCompile>
+      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile />
@@ -120,6 +126,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -130,6 +137,9 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <ClCompile />
+    <ClCompile>
+      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ProjectReference Include="..\common\common.vcxproj">
@@ -171,6 +181,7 @@
     <ClCompile Include="hle\kernel\event.cpp" />
     <ClCompile Include="hle\kernel\kernel.cpp" />
     <ClCompile Include="hle\kernel\mutex.cpp" />
+    <ClCompile Include="hle\kernel\shared_memory.cpp" />
     <ClCompile Include="hle\kernel\thread.cpp" />
     <ClCompile Include="hle\service\apt.cpp" />
     <ClCompile Include="hle\service\gsp.cpp" />
@@ -180,6 +191,7 @@
     <ClCompile Include="hle\service\srv.cpp" />
     <ClCompile Include="hle\svc.cpp" />
     <ClCompile Include="hw\gpu.cpp" />
+    <ClCompile Include="hw\hid.cpp" />
     <ClCompile Include="hw\hw.cpp" />
     <ClCompile Include="hw\ndma.cpp" />
     <ClCompile Include="loader.cpp" />
@@ -222,6 +234,7 @@
     <ClInclude Include="hle\kernel\event.h" />
     <ClInclude Include="hle\kernel\kernel.h" />
     <ClInclude Include="hle\kernel\mutex.h" />
+    <ClInclude Include="hle\kernel\shared_memory.h" />
     <ClInclude Include="hle\kernel\thread.h" />
     <ClInclude Include="hle\service\apt.h" />
     <ClInclude Include="hle\service\gsp.h" />
@@ -231,6 +244,7 @@
     <ClInclude Include="hle\service\srv.h" />
     <ClInclude Include="hle\svc.h" />
     <ClInclude Include="hw\gpu.h" />
+    <ClInclude Include="hw\hid.h" />
     <ClInclude Include="hw\hw.h" />
     <ClInclude Include="hw\ndma.h" />
     <ClInclude Include="loader.h" />

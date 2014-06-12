@@ -3,10 +3,13 @@
 
 #include "common/common.h"
 #include "bootmanager.hxx"
+#include "key_bindings.hxx"
+
 
 #include "core/core.h"
 #include "core/loader.h"
 #include "core/hw/hw.h"
+#include "core/hw/hid.h"
 
 #include "video_core/video_core.h"
 
@@ -119,6 +122,8 @@ GRenderWindow::GRenderWindow(QWidget* parent) : QWidget(parent), emu_thread(this
     setLayout(layout);
 
     BackupGeometry();
+
+    buttonReg = 0x0;
 }
 
 GRenderWindow::~GRenderWindow()
@@ -192,12 +197,17 @@ void GRenderWindow::keyPressEvent(QKeyEvent* event)
     /*
     bool key_processed = false;
     for (unsigned int channel = 0; channel < 4 && controller_interface(); ++channel)
-        if (controller_interface()->SetControllerStatus(channel, event->key(), input_common::GCController::PRESSED))
-            key_processed = true;
+    if (controller_interface()->SetControllerStatus(channel, event->key(), input_common::GCController::PRESSED))
+    key_processed = true;
 
     if (!key_processed)
-        QWidget::keyPressEvent(event);
+    QWidget::keyPressEvent(event);
     */
+
+
+    buttonReg |= GetKeyBinding(event);
+    HID::SetButtonReg(buttonReg);
+    return;
 }
 
 void GRenderWindow::keyReleaseEvent(QKeyEvent* event)
@@ -211,4 +221,7 @@ void GRenderWindow::keyReleaseEvent(QKeyEvent* event)
     if (!key_processed)
         QWidget::keyPressEvent(event);
     */
+
+    buttonReg &= 0xffffffff ^ GetKeyBinding(event);
+    HID::SetButtonReg(buttonReg);
 }

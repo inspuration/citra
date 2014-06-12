@@ -53,6 +53,7 @@
     <addaction name="action_Stop"/>
     <addaction name="separator"/>
     <addaction name="action_Configure"/>
+    <addaction name="action_Key_Bindings"/>
    </widget>
    <widget class="QMenu" name="menu_View">
     <property name="title">
@@ -127,6 +128,11 @@
     <string>Configure &amp;Hotkeys ...</string>
    </property>
   </action>
+   <action name="action_Key_Bindings">
+     <property name="text">
+       <string>Set Key Bindings</string>
+     </property>
+   </action>
   <action name="action_Configure">
    <property name="text">
     <string>Configure ...</string>

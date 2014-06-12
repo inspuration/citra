@@ -9,6 +9,8 @@
 #include "core/mem_map.h"
 #include "core/hw/hw.h"
 #include "hle/hle.h"
+#include "hle/kernel/kernel.h"
+#include "hle/kernel/shared_memory.h"
 #include "hle/config_mem.h"
 
 namespace Memory {
@@ -71,8 +73,15 @@ inline void _Read(T &var, const u32 addr) {
 
     // Shared memory
     } else if ((vaddr >= SHARED_MEMORY_VADDR)  && (vaddr < SHARED_MEMORY_VADDR_END)) {
-        var = *((const T*)&g_shared_mem[vaddr & SHARED_MEMORY_MASK]);
-
+        for (std::map<u32, MemoryBlock>::iterator it = g_shared_map.begin(); it != g_shared_map.end(); it++) {
+            MemoryBlock block = it->second;
+            if ((vaddr >= block.base_address) && (vaddr < block.GetVirtualAddress())) {
+                Handle handle = block.handle;
+                Kernel::ReadSharedMemory<T>(handle, var, addr);
+                return;
+            }
+        }
+        ERROR_LOG(MEMMAP, "Read from unknown shared mapping : Read%d @ 0x%08X", sizeof(var) * 8, vaddr);
     // System memory
     } else if ((vaddr >= SYSTEM_MEMORY_VADDR)  && (vaddr < SYSTEM_MEMORY_VADDR_END)) {
         var = *((const T*)&g_system_mem[vaddr & SYSTEM_MEMORY_MASK]);
@@ -117,7 +126,15 @@ inline void _Write(u32 addr, const T data) {
 
     // Shared memory
     } else if ((vaddr >= SHARED_MEMORY_VADDR)  && (vaddr < SHARED_MEMORY_VADDR_END)) {
-        *(T*)&g_shared_mem[vaddr & SHARED_MEMORY_MASK] = data;
+        for (std::map<u32, MemoryBlock>::iterator it = g_shared_map.begin(); it != g_shared_map.end(); it++) {
+            MemoryBlock block = it->second;
+            if ((vaddr >= block.base_address) && (vaddr < block.base_address + block.size)) {
+                Handle handle = block.handle;
+                Kernel::WriteSharedMemory<T>(handle, data, addr);
+                return;
+            }
+        }
+        ERROR_LOG(MEMMAP, "Write to unknown shared mapping : Write%d 0x%08X @ 0x%08X", sizeof(data) * 8, data, vaddr);
 
     // System memory
     } else if ((vaddr >= SYSTEM_MEMORY_VADDR)  && (vaddr < SYSTEM_MEMORY_VADDR_END)) {
@@ -185,8 +202,9 @@ u8 *GetPointer(const u32 addr) {
  */
 u32 MapBlock_Shared(u32 handle, u32 addr,u32 permissions) {
     MemoryBlock block;
-    
+   
     block.handle        = handle;
+    block.size          = Kernel::GetSharedMemorySize(handle);
     block.base_address  = addr;
     block.permissions   = permissions;
     
@@ -194,9 +212,14 @@ u32 MapBlock_Shared(u32 handle, u32 addr,u32 permissions) {
         const MemoryBlock last_block = g_shared_map.rbegin()->second;
         block.address = last_block.address + last_block.size;
     }
-    g_shared_map[block.GetVirtualAddress()] = block;
 
-    return block.GetVirtualAddress();
+    u32 vaddr = block.GetVirtualAddress();
+
+    g_shared_map[vaddr] = block;
+
+    Kernel::SetSharedMemoryPointer(handle, &g_shared_mem[vaddr & SHARED_MEMORY_MASK]);
+
+    return vaddr;
 }
 
 /**

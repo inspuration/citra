@@ -14,6 +14,8 @@
 
 namespace HID_User {
 
+Handle GetMemIPCHandle();
+
 class Interface : public Service::Interface {
 public:
 

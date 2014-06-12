@@ -67,6 +67,7 @@ enum LOG_TYPE {
     HW,
     TIME,
     NETPLAY,
+    HID,
 
     NUMBER_OF_LOGS // Must be last
 };

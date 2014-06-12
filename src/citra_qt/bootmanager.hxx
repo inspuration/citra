@@ -1,5 +1,6 @@
 #include <QThread>
 #include <QGLWidget>
+#include <map>
 #include "common/common.h"
 #include "common/emu_window.h"
 
@@ -109,4 +110,6 @@ private:
     EmuThread emu_thread;
 
     QByteArray geometry;
+
+    u32 buttonReg;
 };

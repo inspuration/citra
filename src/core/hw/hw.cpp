@@ -8,6 +8,8 @@
 #include "core/hw/hw.h"
 #include "core/hw/gpu.h"
 #include "core/hw/ndma.h"
+#include "core/hw/hid.h"
+
 
 namespace HW {
 
@@ -89,12 +91,14 @@ template void Write<u8>(u32 addr, const u8 data);
 void Update() {
     GPU::Update();
     NDMA::Update();
+    HID::Update();
 }
 
 /// Initialize hardware
 void Init() {
     GPU::Init();
     NDMA::Init();
+    HID::Init();
     NOTICE_LOG(HW, "initialized OK");
 }
 

@@ -13,6 +13,7 @@
 
 #include "bootmanager.hxx"
 #include "hotkeys.hxx"
+#include "key_bindings.hxx"
 
 //debugger
 #include "debugger/disassembler.hxx"
@@ -92,7 +93,8 @@ GMainWindow::GMainWindow()
     connect(ui.action_Pause, SIGNAL(triggered()), this, SLOT(OnPauseGame()));
     connect(ui.action_Stop, SIGNAL(triggered()), this, SLOT(OnStopGame()));
     connect(ui.action_Popout_Window_Mode, SIGNAL(triggered(bool)), this, SLOT(ToggleWindowMode()));
-    connect(ui.action_Hotkeys, SIGNAL(triggered()), this, SLOT(OnOpenHotkeysDialog()));
+    connect(ui.action_Hotkeys, SIGNAL(triggered()), this, SLOT(OnOpenHotkeysDialog()));\
+    connect(ui.action_Key_Bindings, SIGNAL(triggered()), this, SLOT(OnOpenKeyBindingsDialog()));
 
     // BlockingQueuedConnection is important here, it makes sure we've finished refreshing our views before the CPU continues
     connect(&render_window->GetEmuThread(), SIGNAL(CPUStepped()), disasmWidget, SLOT(OnCPUStepped()), Qt::BlockingQueuedConnection);
@@ -106,6 +108,11 @@ GMainWindow::GMainWindow()
 
     connect(GetHotkey("Main Window", "Load File", this), SIGNAL(activated()), this, SLOT(OnMenuLoadFile()));
     connect(GetHotkey("Main Window", "Start Emulation", this), SIGNAL(activated()), this, SLOT(OnStartGame()));
+
+    // Setup key bindings
+    setDefaultKeyBindings();
+    LoadKeyBindings(settings);
+
 
     setWindowTitle(render_window->GetWindowTitle().c_str());
 
@@ -195,6 +202,13 @@ void GMainWindow::OnStopGame()
 void GMainWindow::OnOpenHotkeysDialog()
 {
     GHotkeysDialog dialog(this);
+    dialog.exec();
+}
+
+
+void GMainWindow::OnOpenKeyBindingsDialog()
+{
+    GKeyBindingsDialog dialog(this);
     dialog.exec();
 }
 

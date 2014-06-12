@@ -9,6 +9,7 @@
 #include "core/mem_map.h"
 #include "core/hle/hle.h"
 #include "core/hle/kernel/event.h"
+#include "core/hle/kernel/shared_memory.h"
 #include "core/hle/service/gsp.h"
 
 #include "core/hw/gpu.h"
@@ -19,6 +20,10 @@
 
 // Main graphics debugger object - TODO: Here is probably not the best place for this
 GraphicsDebugger g_debugger;
+
+//Handle to irq memory
+Handle memIRQ;
+
 
 /// GSP shared memory GX command buffer header
 union GX_CmdBufferHeader {
@@ -121,6 +126,8 @@ void RegisterInterruptRelayQueue(Service::Interface* self) {
     Kernel::SetPermanentLock(event_handle, true);
 
     cmd_buff[2] = g_thread_id;          // ThreadID
+    memIRQ = Kernel::CreateSharedMemory(0x1000); //page size for now
+    cmd_buff[4] = memIRQ;
 }
 
 

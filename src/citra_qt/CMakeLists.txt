@@ -7,6 +7,7 @@ set(SRCS
             debugger/ramview.cpp
             debugger/registers.cpp
             hotkeys.cpp
+            key_bindings.cpp
             main.cpp
             config/controller_config.cpp
             config/controller_config_util.cpp)
@@ -17,11 +18,13 @@ set (HEADERS
             debugger/ramview.hxx
             debugger/registers.hxx
             hotkeys.hxx
+            key_bindings.hxx
             main.hxx
             ui_callstack.h
             ui_controller_config.h
             ui_disassembler.h
             ui_hotkeys.h
+            ui_key_bindings.h
             ui_main.h
             ui_registers.h
             version.h
@@ -33,6 +36,7 @@ qt4_wrap_ui(UI_HDRS
                     debugger/disassembler.ui
                     debugger/registers.ui
                     hotkeys.ui
+                    key_bindings.ui
                     main.ui
                     config/controller_config.ui)
 
@@ -45,6 +49,7 @@ qt4_wrap_cpp(MOC_SRCS
                         debugger/registers.hxx
                         debugger/ramview.hxx
                         hotkeys.hxx
+                        key_bindings.hxx
                         main.hxx
                         config/controller_config.hxx
                         config/controller_config_util.hxx)
