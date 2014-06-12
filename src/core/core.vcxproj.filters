@@ -167,9 +167,11 @@
     </ClCompile>
     <ClCompile Include="hle\kernel\event.cpp">
       <Filter>hle\kernel</Filter>
+	</ClCompile>
     </ClCompile>
     <ClCompile Include="hle\kernel\shared_memory.cpp">
       <Filter>hle\kernel</Filter>
+	</ClCompile>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
