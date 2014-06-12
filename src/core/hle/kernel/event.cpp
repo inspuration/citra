@@ -3,6 +3,7 @@
 // Refer to the license.txt file included.  
 
 #include <map>
+#include <algorithm>
 #include <vector>
 
 #include "common/common.h"
