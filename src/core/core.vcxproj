@@ -181,8 +181,10 @@
     <ClCompile Include="hle\kernel\event.cpp" />
     <ClCompile Include="hle\kernel\kernel.cpp" />
     <ClCompile Include="hle\kernel\mutex.cpp" />
+    <ClCompile Include="hle\kernel\semaphore.cpp" />
     <ClCompile Include="hle\kernel\shared_memory.cpp" />
     <ClCompile Include="hle\kernel\thread.cpp" />
+    <ClCompile Include="hle\kernel\timer.cpp" />
     <ClCompile Include="hle\service\apt.cpp" />
     <ClCompile Include="hle\service\gsp.cpp" />
     <ClCompile Include="hle\service\hid.cpp" />
@@ -234,8 +236,10 @@
     <ClInclude Include="hle\kernel\event.h" />
     <ClInclude Include="hle\kernel\kernel.h" />
     <ClInclude Include="hle\kernel\mutex.h" />
+    <ClInclude Include="hle\kernel\semaphore.h" />
     <ClInclude Include="hle\kernel\shared_memory.h" />
     <ClInclude Include="hle\kernel\thread.h" />
+    <ClInclude Include="hle\kernel\timer.h" />
     <ClInclude Include="hle\service\apt.h" />
     <ClInclude Include="hle\service\gsp.h" />
     <ClInclude Include="hle\service\hid.h" />
