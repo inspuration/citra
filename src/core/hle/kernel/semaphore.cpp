@@ -54,6 +54,7 @@ public:
         if (count == 0) {
             Kernel::WaitCurrentThread(WAITTYPE_SEMA);
         }
+        count--;
         return 0;
     }
 };
@@ -93,6 +94,7 @@ Semaphore* CreateSemaphore(Handle& handle, s32 initial_count, s32 max_count, con
     handle = Kernel::g_object_pool.Create(sem);
 
     sem->initial_count = sem->count = initial_count;
+    sem->max_count = max_count;
     sem->name = name;
 
     return sem;
