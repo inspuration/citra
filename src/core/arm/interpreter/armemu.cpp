@@ -993,6 +993,7 @@ ARMul_Emulate26 (ARMul_State * state)
                     state->exclusive_tag_array[0] = 0xFFFFFFFF;
                     state->exclusive_access_state = 0;
                     _assert_msg_(ARM11, false, "disabled skyeye code 'goto donext'"); //goto donext;
+                    goto donext;
                 }
 
                 if (BITS(20, 27) == 0x10) {
