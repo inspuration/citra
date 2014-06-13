@@ -7,6 +7,9 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+
+#include "core/hw/hid.h"
+
 #include "common/emu_window.h"
 
 class EmuWindow_GLFW : public EmuWindow {

@@ -7,7 +7,6 @@
 #include "common/common.h"
 
 #include "video_core/video_core.h"
-#include "core/hw/hid.h"
 
 #include "citra/citra.h"
 #include "citra/emu_window/emu_window_glfw.h"
