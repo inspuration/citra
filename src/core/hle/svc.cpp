@@ -12,6 +12,7 @@
 #include "core/hle/kernel/event.h"
 #include "core/hle/kernel/kernel.h"
 #include "core/hle/kernel/mutex.h"
+#include "core/hle/kernel/semaphore.h"
 #include "core/hle/kernel/thread.h"
 
 #include "core/hle/function_wrappers.h"
@@ -331,6 +332,22 @@ void SleepThread(s64 nanoseconds) {
     DEBUG_LOG(SVC, "called nanoseconds=%d", nanoseconds);
 }
 
+//Create a semaphore
+Result CreateSemaphore(Handle* semaphore, s32 initial_count, s32 max_count) {
+    *semaphore = Kernel::CreateSemaphore(initial_count, max_count);
+    DEBUG_LOG(SVC, "called initial_count=%d, max_count=%d : created handle=0x%08X",
+        initial_count, max_count, *semaphore);
+    return 0;
+}
+
+//Release a semaphore
+Result ReleaseSemaphore(s32* count, Handle handle, s32 release_count) {
+    DEBUG_LOG(SVC, "called handle=0x%08X", handle);
+    _assert_msg_(KERNEL, (handle != 0), "called, but handle is nullptr!");
+    Kernel::ReleaseSemaphore(count, handle, release_count);
+    return 0;
+}
+
 const HLE::FunctionDef SVC_Table[] = {
     {0x00, nullptr,                         "Unknown"},
     {0x01, HLE::Wrap<ControlMemory>,        "ControlMemory"},
@@ -353,8 +370,8 @@ const HLE::FunctionDef SVC_Table[] = {
     {0x12, nullptr,                         "Run"},
     {0x13, HLE::Wrap<CreateMutex>,          "CreateMutex"},
     {0x14, HLE::Wrap<ReleaseMutex>,         "ReleaseMutex"},
-    {0x15, nullptr,                         "CreateSemaphore"},
-    {0x16, nullptr,                         "ReleaseSemaphore"},
+    {0x15, HLE::Wrap<CreateSemaphore>,      "CreateSemaphore"},
+    {0x16, HLE::Wrap<ReleaseSemaphore>,     "ReleaseSemaphore"},
     {0x17, HLE::Wrap<CreateEvent>,          "CreateEvent"},
     {0x18, HLE::Wrap<SignalEvent>,          "SignalEvent"},
     {0x19, HLE::Wrap<ClearEvent>,           "ClearEvent"},
