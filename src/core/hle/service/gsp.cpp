@@ -22,7 +22,9 @@
 GraphicsDebugger g_debugger;
 
 //Handle to irq memory
-Handle g_mem_irq;
+Handle g_mem_irq = 0;
+
+static const int irq_mem_size = 0x1000; //TODO(bravia): determine the correct size for this region
 
 
 /// GSP shared memory GX command buffer header
@@ -126,7 +128,7 @@ void RegisterInterruptRelayQueue(Service::Interface* self) {
     Kernel::SetPermanentLock(event_handle, true);
 
     cmd_buff[2] = g_thread_id;          // ThreadID
-    g_mem_irq = Kernel::CreateSharedMemory(0x1000); //page size for now
+    g_mem_irq = Kernel::CreateSharedMemory(irq_mem_size); //page size for now
     cmd_buff[4] = g_mem_irq;
 }
 

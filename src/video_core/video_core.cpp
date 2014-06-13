@@ -36,7 +36,8 @@ void Init(EmuWindow* emu_window) {
     glewExperimental = GL_TRUE;
 #endif
 #if EMU_PLATFORM == PLATFORM_WINDOWS
-    glewExperimental = GL_TRUE;
+    //Similar to OSX problem, windows requires glewExperimental to avoid runtime errors
+    glewExperimental = GL_TRUE;  
 #endif
 
 

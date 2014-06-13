@@ -73,11 +73,10 @@ inline void _Read(T &var, const u32 addr) {
 
     // Shared memory
     } else if ((vaddr >= SHARED_MEMORY_VADDR)  && (vaddr < SHARED_MEMORY_VADDR_END)) {
-        for (std::map<u32, MemoryBlock>::iterator it = g_shared_map.begin(); it != g_shared_map.end(); it++) {
+        for (std::map<u32, MemoryBlock>::iterator it = g_shared_map.begin(); it != g_shared_map.end(); ++it) {
             MemoryBlock block = it->second;
             if ((vaddr >= block.base_address) && (vaddr < block.GetVirtualAddress())) {
-                Handle handle = block.handle;
-                Kernel::ReadSharedMemory<T>(handle, var, addr);
+                Kernel::ReadSharedMemory<T>(block.handle, var, addr);
                 return;
             }
         }
@@ -126,11 +125,10 @@ inline void _Write(u32 addr, const T data) {
 
     // Shared memory
     } else if ((vaddr >= SHARED_MEMORY_VADDR)  && (vaddr < SHARED_MEMORY_VADDR_END)) {
-        for (std::map<u32, MemoryBlock>::iterator it = g_shared_map.begin(); it != g_shared_map.end(); it++) {
+        for (std::map<u32, MemoryBlock>::iterator it = g_shared_map.begin(); it != g_shared_map.end(); ++it) {
             MemoryBlock block = it->second;
             if ((vaddr >= block.base_address) && (vaddr < block.base_address + block.size)) {
-                Handle handle = block.handle;
-                Kernel::WriteSharedMemory<T>(handle, data, addr);
+                Kernel::WriteSharedMemory<T>(block.handle, data, addr);
                 return;
             }
         }

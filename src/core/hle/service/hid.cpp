@@ -13,7 +13,9 @@
 
 namespace HID_User {
 
-Handle g_mem_ipc = NULL;
+Handle g_mem_ipc = 0;
+
+static const int ipc_mem_size = 0x1000; //TODO(bravia): determine size of this region
 
 Handle GetMemIPCHandle() {
     return g_mem_ipc;
@@ -21,7 +23,7 @@ Handle GetMemIPCHandle() {
 
 void GetIPCHandles(Service::Interface* self) {
     u32* cmd_buff = Service::GetCommandBuffer();
-    g_mem_ipc = Kernel::CreateSharedMemory(0x1000); //page size for now
+    g_mem_ipc = Kernel::CreateSharedMemory(ipc_mem_size);
     cmd_buff[3] = g_mem_ipc;
 }
 
