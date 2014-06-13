@@ -35,6 +35,10 @@ void Init(EmuWindow* emu_window) {
     // Known problem with GLEW prevents contexts above 2.x on OSX unless glewExperimental is enabled.
     glewExperimental = GL_TRUE;
 #endif
+#if EMU_PLATFORM == PLATFORM_WINDOWS
+    glewExperimental = GL_TRUE;
+#endif
+
 
     g_emu_window = emu_window;
     g_emu_window->MakeCurrent();

@@ -1,3 +1,7 @@
+// Copyright 2014 Citra Emulator Project
+// Licensed under GPLv2
+// Refer to the license.txt file included.
+
 #include <QKeySequence>
 #include <QStyledItemDelegate>
 #include <QSettings>
@@ -64,7 +68,7 @@ void RegisterKeyBinding(const QKeySequence keySeq, const HID::PAD pad)
 }
 
 void createNameMap() {
-	for (int i = 0; i < HID::numPadItems; i++){
+	for (int i = 0; i < HID::g_num_pad_items; i++){
 		names[(HID::PAD)(1 << i)] = QString(HID::PAD_NAMES[i]);
         reverseNames[QString(HID::PAD_NAMES[i])] = (HID::PAD)(1 << i);
 	}

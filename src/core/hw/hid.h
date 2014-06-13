@@ -1,3 +1,7 @@
+// Copyright 2014 Citra Emulator Project
+// Licensed under GPLv2
+// Refer to the license.txt file included.
+
 #pragma once
 
 #include "common/common_types.h"
@@ -13,15 +17,10 @@ struct Registers {
 extern Registers g_regs;
 
 enum {
-    OFFSET_BUTTONS = 0x1c,  //TODO: it works using the shared mem mapping with all homebrew tested, however the wiki states 0x10146000 as the paddr
+    OFFSET_BUTTONS = 0x1c,
 };
 
-
-enum {
-    REG_BUTTONS = 0x1EC46000   //does not work due to confusion between shared mem and hardware IO
-};
-
-const int numPadItems = 12; // figure out a better way :(
+const int g_num_pad_items = 12; 
 
 enum PAD {
     PAD_A = (1 << 0),
@@ -38,7 +37,7 @@ enum PAD {
     PAD_Y = (1 << 11),
 };
 
-char * const PAD_NAMES[] = {
+const char * const PAD_NAMES[] = {
     "PAD_A",
     "PAD_B",
     "PAD_SELECT",
@@ -53,7 +52,7 @@ char * const PAD_NAMES[] = {
     "PAD_Y"
 };
 
-void SetButtonReg(u32 buttonData);
+void SetButtonReg(u32 button_data);
 
 /// Update hardware
 void Update();

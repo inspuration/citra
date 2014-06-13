@@ -22,7 +22,7 @@
 GraphicsDebugger g_debugger;
 
 //Handle to irq memory
-Handle memIRQ;
+Handle g_mem_irq;
 
 
 /// GSP shared memory GX command buffer header
@@ -126,8 +126,8 @@ void RegisterInterruptRelayQueue(Service::Interface* self) {
     Kernel::SetPermanentLock(event_handle, true);
 
     cmd_buff[2] = g_thread_id;          // ThreadID
-    memIRQ = Kernel::CreateSharedMemory(0x1000); //page size for now
-    cmd_buff[4] = memIRQ;
+    g_mem_irq = Kernel::CreateSharedMemory(0x1000); //page size for now
+    cmd_buff[4] = g_mem_irq;
 }
 
 

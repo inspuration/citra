@@ -1,3 +1,7 @@
+// Copyright 2014 Citra Emulator Project
+// Licensed under GPLv2
+// Refer to the license.txt file included.
+
 #include <QDialog>
 #include "ui_key_bindings.h"
 #include "core/hw/hid.h"

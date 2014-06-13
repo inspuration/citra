@@ -5,12 +5,33 @@
 #include "common/common.h"
 
 #include "video_core/video_core.h"
+#include "core/hw/hid.h"
+
+#include <map>
 
 #include "citra/citra.h"
 #include "citra/emu_window/emu_window_glfw.h"
 
-static void OnKeyEvent(GLFWwindow* win, int key, int action) {
-    // TODO(bunnei): ImplementMe
+typedef std::map<int, HID::PAD> GLFWKeyMapping;
+
+GLFWKeyMapping g_key_mapping;
+
+u32 g_button_reg;
+
+static void OnKeyEvent(GLFWwindow* win, int key, int scancode, int action, int mods ) {
+    try {
+        HID::PAD button = g_key_mapping.at(key);
+        if (action == GLFW_RELEASE) {
+            g_button_reg &= 0xffffffff ^ button;
+        }
+        else if (action == GLFW_PRESS){
+            g_button_reg |= button;
+        }
+        HID::SetButtonReg(g_button_reg);
+    }
+    catch (std::out_of_range& e){
+
+    }
 }
 
 static void OnWindowSizeEvent(GLFWwindow* win, int width, int height) {
@@ -18,6 +39,24 @@ static void OnWindowSizeEvent(GLFWwindow* win, int width, int height) {
     emu_window->SetClientAreaWidth(width);
     emu_window->SetClientAreaHeight(height);
 }
+
+void SetKeyDefaults() {
+    g_key_mapping['Y'] = HID::PAD::PAD_A;
+    g_key_mapping['H'] = HID::PAD::PAD_B;
+    g_key_mapping['Z'] = HID::PAD::PAD_START;
+    g_key_mapping['X'] = HID::PAD::PAD_SELECT;
+
+    g_key_mapping['W'] = HID::PAD::PAD_UP;
+    g_key_mapping['A'] = HID::PAD::PAD_LEFT;
+    g_key_mapping['S'] = HID::PAD::PAD_DOWN;
+    g_key_mapping['D'] = HID::PAD::PAD_RIGHT;
+
+    g_key_mapping['6'] = HID::PAD::PAD_R;
+    g_key_mapping['7'] = HID::PAD::PAD_L;
+    g_key_mapping['U'] = HID::PAD::PAD_X;
+    g_key_mapping['J'] = HID::PAD::PAD_Y;
+}
+
 
 /// EmuWindow_GLFW constructor
 EmuWindow_GLFW::EmuWindow_GLFW() {
@@ -46,8 +85,10 @@ EmuWindow_GLFW::EmuWindow_GLFW() {
     
     // Setup callbacks
     glfwSetWindowUserPointer(m_render_window, this);
-    //glfwSetKeyCallback(m_render_window, OnKeyEvent);
+    glfwSetKeyCallback(m_render_window, (GLFWkeyfun)OnKeyEvent);
     //glfwSetWindowSizeCallback(m_render_window, OnWindowSizeEvent);
+
+    SetKeyDefaults();
 
     DoneCurrent();
 }
