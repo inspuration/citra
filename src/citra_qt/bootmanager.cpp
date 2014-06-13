@@ -123,7 +123,7 @@ GRenderWindow::GRenderWindow(QWidget* parent) : QWidget(parent), emu_thread(this
 
     BackupGeometry();
 
-    buttonReg = 0x0;
+    button_reg = 0x0;
 }
 
 GRenderWindow::~GRenderWindow()
@@ -197,16 +197,16 @@ void GRenderWindow::keyPressEvent(QKeyEvent* event)
     /*
     bool key_processed = false;
     for (unsigned int channel = 0; channel < 4 && controller_interface(); ++channel)
-    if (controller_interface()->SetControllerStatus(channel, event->key(), input_common::GCController::PRESSED))
-    key_processed = true;
+        if (controller_interface()->SetControllerStatus(channel, event->key(), input_common::GCController::PRESSED))
+            key_processed = true;
 
     if (!key_processed)
-    QWidget::keyPressEvent(event);
+        QWidget::keyPressEvent(event);
     */
 
 
-    buttonReg |= GetKeyBinding(event);
-    HID::SetButtonReg(buttonReg);
+    button_reg |= GetKeyBinding(event);
+    HID::SetButtonReg(button_reg);
     return;
 }
 
@@ -222,6 +222,6 @@ void GRenderWindow::keyReleaseEvent(QKeyEvent* event)
         QWidget::keyPressEvent(event);
     */
 
-    buttonReg &= 0xffffffff ^ GetKeyBinding(event);
-    HID::SetButtonReg(buttonReg);
+    button_reg &= ~GetKeyBinding(event);
+    HID::SetButtonReg(button_reg);
 }

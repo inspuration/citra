@@ -3,8 +3,8 @@
 // Refer to the license.txt file included.
 
 #include <QDialog>
-#include "ui_key_bindings.h"
 #include "core/hw/hid.h"
+#include "ui_key_bindings.h"
 
 
 
@@ -56,7 +56,7 @@ class GKeyBindingsDialog : public QDialog
     Q_OBJECT
 
 public:
-	GKeyBindingsDialog(QWidget* parent = NULL);
+    GKeyBindingsDialog(QWidget* parent = NULL);
 
 private:
     Ui::key_bindings ui;
@@ -64,3 +64,4 @@ private:
 private slots:
     void updateItem(QTreeWidgetItem * item, int column);
 };
+    

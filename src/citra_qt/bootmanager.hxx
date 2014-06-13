@@ -1,6 +1,6 @@
+#include <map>
 #include <QThread>
 #include <QGLWidget>
-#include <map>
 #include "common/common.h"
 #include "common/emu_window.h"
 
@@ -111,5 +111,5 @@ private:
 
     QByteArray geometry;
 
-    u32 buttonReg;
+    u32 button_reg;
 };

@@ -36,9 +36,14 @@ public:
         verticalLayout = new QVBoxLayout(key_bindings);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         treeWidget = new QTreeWidget(key_bindings);
+        QTreeWidgetItem *__qtreewidgetitem = new QTreeWidgetItem();
+        __qtreewidgetitem->setText(1, QString::fromUtf8("2"));
+        treeWidget->setHeaderItem(__qtreewidgetitem);
         treeWidget->setObjectName(QString::fromUtf8("treeWidget"));
+        treeWidget->setEditTriggers(QAbstractItemView::AnyKeyPressed|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked);
         treeWidget->setSelectionBehavior(QAbstractItemView::SelectItems);
         treeWidget->setHeaderHidden(false);
+        treeWidget->setColumnCount(2);
 
         verticalLayout->addWidget(treeWidget);
 
@@ -61,8 +66,6 @@ public:
     {
         key_bindings->setWindowTitle(QApplication::translate("key_bindings", "Key Bindings", 0, QApplication::UnicodeUTF8));
         QTreeWidgetItem *___qtreewidgetitem = treeWidget->headerItem();
-        ___qtreewidgetitem->setText(2, QApplication::translate("key_bindings", "Pad", 0, QApplication::UnicodeUTF8));
-        ___qtreewidgetitem->setText(1, QApplication::translate("key_bindings", "Key", 0, QApplication::UnicodeUTF8));
         ___qtreewidgetitem->setText(0, QApplication::translate("key_bindings", "Action", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 

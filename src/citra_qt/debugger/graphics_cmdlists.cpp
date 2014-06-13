@@ -17,7 +17,6 @@ GPUCommandListModel::GPUCommandListModel(QObject* parent) : QAbstractItemModel(p
 QModelIndex GPUCommandListModel::index(int row, int column, const QModelIndex& parent) const
 {
     TreeItem* item;
-    TreeItem* internal;
 
     if (!parent.isValid()) {
         item = root_item;
@@ -25,13 +24,10 @@ QModelIndex GPUCommandListModel::index(int row, int column, const QModelIndex& p
         item = (TreeItem*)parent.internalPointer();
     }
 
-    if (item->children.size() <= row) {
-        internal = item;
-    }
-    else { internal = item->children[row]; }
 
+    TreeItem* internal_item = (item->children.size() <= row) ? item : item->children[row];
 
-    return createIndex(row, column, internal);
+    return createIndex(row, column, internal_item);
 }
 
 QModelIndex GPUCommandListModel::parent(const QModelIndex& child) const

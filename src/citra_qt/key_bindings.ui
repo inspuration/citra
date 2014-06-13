@@ -16,11 +16,17 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QTreeWidget" name="treeWidget">
+     <property name="editTriggers">
+      <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
+     </property>
      <property name="selectionBehavior">
       <enum>QAbstractItemView::SelectItems</enum>
      </property>
      <property name="headerHidden">
       <bool>false</bool>
+     </property>
+     <property name="columnCount">
+      <number>2</number>
      </property>
      <column>
       <property name="text">
@@ -29,12 +35,7 @@
      </column>
      <column>
       <property name="text">
-       <string>Key</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Pad</string>
+       <string notr="true">2</string>
       </property>
      </column>
     </widget>
