@@ -1,4 +1,3 @@
-#include <map>
 #include <QThread>
 #include <QGLWidget>
 #include "common/common.h"

@@ -207,7 +207,6 @@ void GRenderWindow::keyPressEvent(QKeyEvent* event)
 
     button_reg |= GetKeyBinding(event);
     HID::SetButtonReg(button_reg);
-    return;
 }
 
 void GRenderWindow::keyReleaseEvent(QKeyEvent* event)

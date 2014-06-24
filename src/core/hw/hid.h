@@ -20,7 +20,7 @@ enum {
     OFFSET_BUTTONS = 0x1c,
 };
 
-const int g_num_pad_items = 12; 
+static const int g_num_pad_items = 12; 
 
 enum PAD {
     PAD_A = (1 << 0),

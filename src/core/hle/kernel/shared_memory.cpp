@@ -37,7 +37,7 @@ public:
     inline void Write(T &var, const u32 addr);
 
     u32 size;
-    u8* mem_ptr = NULL;
+    u8* mem_ptr;
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,6 +48,7 @@ SharedMemory* CreateSharedMemory(Handle& handle, u32 size) {
     SharedMemory* mem = new SharedMemory;
     handle = Kernel::g_object_pool.Create(mem);
     mem->size = size;
+    mem->mem_ptr = nullptr;
     return mem;
 }
 
